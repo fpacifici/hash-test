@@ -1,4 +1,4 @@
-from generators import generate
+from generators import generate_strings
 import logging
 from logging import INFO
 from storage import redis_save, postgres_save, RetStatus
@@ -12,7 +12,7 @@ progress = 0
 stored = 0
 skipped = 0
 collisions = 0
-for id, hash in generate():
+for id, hash in generate_strings():
     ret = redis_save(id, hash)
     progress += 1
     if ret == RetStatus.STORED:
@@ -23,4 +23,4 @@ for id, hash in generate():
         collisions += 1
     
     if progress % 50 == 0:
-        logger.info("Stored %d, Skipped %d, Collisions %d", stored, skipped, collisions)
+        logger.info("Last: %s, Stored %d, Skipped %d, Collisions %d", id, stored, skipped, collisions)

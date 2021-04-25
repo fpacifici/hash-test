@@ -1,0 +1,16 @@
+---
+version: '3.4'
+services:
+    redis1:
+        image: redis:5.0-alpine
+        command:
+        - redis-server
+        - '--appendonly'
+        - 'no'
+    hashes:
+        depends_on:
+            - redis1
+        environment:
+            REDIS_HOST: 'redis1'
+        build: .
+        

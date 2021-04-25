@@ -7,10 +7,18 @@ services:
         - redis-server
         - '--appendonly'
         - 'no'
+    postgres:
+        image: postgres:9.6-alpine
+        environment:
+            POSTGRES_PASSWORD: "password"
+            POSTGRES_DB: "hashes"
+            POSTGRES_HOST_AUTH_METHOD: "trust"
     hashes:
         depends_on:
+            - postgres
             - redis1
         environment:
             REDIS_HOST: 'redis1'
+            POSTGRES_HOST: 'postgres'
         build: .
         

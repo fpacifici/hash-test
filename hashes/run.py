@@ -1,7 +1,7 @@
 from generators import generate
 import logging
 from logging import INFO
-from storage import redis_save, RetStatus
+from storage import postgres_save, RetStatus
 import settings
 
 logging.basicConfig(format=settings.FORMAT)
@@ -13,7 +13,7 @@ stored = 0
 skipped = 0
 collisions = 0
 for id, hash in generate():
-    ret = redis_save(id, hash)
+    ret = postgres_save(id, hash)
     progress += 1
     if ret == RetStatus.STORED:
         stored += 1

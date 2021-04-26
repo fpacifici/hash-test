@@ -19,7 +19,7 @@ ALPHABET = [
 def generate_strings() -> Iterable[Tuple[str, int]]:
     pos = 0
     while True:
-        pos += (50000 + (1000 - random.randint(1, 2000)))
+        pos += (5000000 + (100000 - random.randint(1, 200000)))
         shift = pos
         ret = []
         while shift > 0:
